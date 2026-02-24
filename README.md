@@ -62,7 +62,7 @@ The **preventDefault()** method stops the default behavior of the browser for ev
 In simple terms, preventDefault means "do not perform default action", while stopPropagation means "do not pass this event to parent elements."
 
 **Example:**
-```javascript
+
 // preventDefault example
 linkElement.addEventListener('click', (e) => {
   e.preventDefault(); // link won't redirect
