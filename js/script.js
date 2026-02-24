@@ -97,8 +97,15 @@ mainContainer.addEventListener('click', function (event) {
       item => !(item.companyName === jobInfo.companyName && item.position === jobInfo.position)
     );
 
+    // Update badge color to green
+    const badge = card.querySelector('.text-xs.px-2');
+    badge.className = 'text-xs px-2 py-0.5 bg-green-500 text-white rounded inline-block mb-2';
+    badge.innerText = 'INTERVIEW';
+
     if (currentTab === 'rejected') {
       renderRejectedJobs();
+    } else if (currentTab === 'interview') {
+      renderInterviewJobs();
     }
 
     calculateCounts();
@@ -124,8 +131,15 @@ mainContainer.addEventListener('click', function (event) {
       item => !(item.companyName === jobInfo.companyName && item.position === jobInfo.position)
     );
 
+    // Update badge color to red
+    const badge = card.querySelector('.text-xs.px-2');
+    badge.className = 'text-xs px-2 py-0.5 bg-red-500 text-white rounded inline-block mb-2';
+    badge.innerText = 'REJECTED';
+
     if (currentTab === 'interview') {
       renderInterviewJobs();
+    } else if (currentTab === 'rejected') {
+      renderRejectedJobs();
     }
 
     calculateCounts();
@@ -231,6 +245,17 @@ function createJobCard(job) {
   const card = document.createElement('div');
   card.className = 'job-card bg-white border border-gray-200 rounded-lg p-4 relative';
 
+  let badgeClass = 'text-xs px-2 py-0.5 bg-gray-100 text-gray-700 rounded inline-block mb-2';
+  let badgeText = 'NOT APPLIED';
+
+  if (job.status === 'Interview') {
+    badgeClass = 'text-xs px-2 py-0.5 bg-green-500 text-white rounded inline-block mb-2';
+    badgeText = 'INTERVIEW';
+  } else if (job.status === 'Rejected') {
+    badgeClass = 'text-xs px-2 py-0.5 bg-red-500 text-white rounded inline-block mb-2';
+    badgeText = 'REJECTED';
+  }
+
   card.innerHTML = `
         <div class="flex justify-between">
             <div class="flex-1">
@@ -239,7 +264,7 @@ function createJobCard(job) {
                 <p class="text-xs text-gray-500 mb-2">
                     <span class="location">${job.location}</span> • <span class="type">${job.type}</span> • <span class="salary">${job.salary}</span>
                 </p>
-                <p class="text-xs px-2 py-0.5 bg-gray-100 text-gray-700 rounded inline-block mb-2">NOT APPLIED</p>
+                <p class="${badgeClass}">${badgeText}</p>
                 <p class="description text-xs text-gray-600 mb-3">${job.description}</p>
 
                 <div class="flex gap-2">
