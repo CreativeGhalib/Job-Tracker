@@ -74,11 +74,3 @@ button.addEventListener('click', (e) => {
 });
 ```
 
----
-
-## Notes
-- These are common JavaScript DOM manipulation interview questions
-- Practice these concepts with live coding examples
-- Understanding event bubbling and delegation is crucial for efficient DOM handling
-
----
