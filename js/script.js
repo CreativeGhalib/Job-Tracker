@@ -157,3 +157,101 @@ mainContainer.addEventListener('click', function (event) {
   }
 });
 
+// Pull job data from a card element
+function extractJobInfo(card) {
+  const companyName = card.querySelector('.companyName').innerText;
+  const position = card.querySelector('.position').innerText;
+  const location = card.querySelector('.location').innerText;
+  const type = card.querySelector('.type').innerText;
+  const salary = card.querySelector('.salary').innerText;
+  const description = card.querySelector('.description').innerText;
+
+  return {
+    companyName,
+    position,
+    location,
+    type,
+    salary,
+    description,
+    status: 'Available',
+  };
+}
+
+function renderInterviewJobs() {
+  filteredSection.innerHTML = '';
+
+  if (interviewList.length === 0) {
+    filteredSection.innerHTML = `
+            <div class="empty-state">
+                <i class="fa-solid fa-file-alt"></i>
+                <h3>No jobs available</h3>
+                <p>Check back soon for new job opportunities</p>
+            </div>
+        `;
+    return;
+  }
+
+  const container = document.createElement('div');
+  container.className = 'space-y-3';
+
+  for (let job of interviewList) {
+    const card = createJobCard(job);
+    container.appendChild(card);
+  }
+
+  filteredSection.appendChild(container);
+}
+
+function renderRejectedJobs() {
+  filteredSection.innerHTML = '';
+
+  if (rejectedList.length === 0) {
+    filteredSection.innerHTML = `
+            <div class="empty-state">
+                <i class="fa-solid fa-file-alt"></i>
+                <h3>No jobs available</h3>
+                <p>There is no rejected job available right now</p>
+            </div>
+        `;
+    return;
+  }
+
+  const container = document.createElement('div');
+  container.className = 'space-y-3';
+
+  for (let job of rejectedList) {
+    const card = createJobCard(job);
+    container.appendChild(card);
+  }
+
+  filteredSection.appendChild(container);
+}
+
+function createJobCard(job) {
+  const card = document.createElement('div');
+  card.className = 'job-card bg-white border border-gray-200 rounded-lg p-4 relative';
+
+  card.innerHTML = `
+        <div class="flex justify-between">
+            <div class="flex-1">
+                <h3 class="companyName text-sm font-bold text-gray-900 mb-1">${job.companyName}</h3>
+                <p class="position text-xs text-blue-600 mb-2">${job.position}</p>
+                <p class="text-xs text-gray-500 mb-2">
+                    <span class="location">${job.location}</span> • <span class="type">${job.type}</span> • <span class="salary">${job.salary}</span>
+                </p>
+                <p class="text-xs px-2 py-0.5 bg-gray-100 text-gray-700 rounded inline-block mb-2">NOT APPLIED</p>
+                <p class="description text-xs text-gray-600 mb-3">${job.description}</p>
+
+                <div class="flex gap-2">
+                    <button class="interview-btn px-3 py-1.5 border-2 border-teal-500 text-teal-500 rounded text-xs font-semibold hover:bg-teal-50 transition">INTERVIEW</button>
+                    <button class="rejected-btn px-3 py-1.5 border-2 border-red-500 text-red-500 rounded text-xs font-semibold hover:bg-red-50 transition">REJECTED</button>
+                </div>
+            </div>
+            <button class="btn-delete text-gray-400 hover:text-gray-600 absolute top-4 right-4">
+                <i class="fa-solid fa-trash text-sm"></i>
+            </button>
+        </div>
+    `;
+
+  return card;
+}
