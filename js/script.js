@@ -25,9 +25,9 @@ function calculateCounts() {
   if (currentTab === 'all') {
     jobsCount.innerText = totalJobs;
   } else if (currentTab === 'interview') {
-    jobsCount.innerText = interviewList.length;
+    jobsCount.innerText = `${interviewList.length} of ${totalJobs}`;
   } else if (currentTab === 'rejected') {
-    jobsCount.innerText = rejectedList.length;
+    jobsCount.innerText = `${rejectedList.length} of ${totalJobs}`;
   }
 }
 
