@@ -1,0 +1,45 @@
+body {
+  font-family: 'Geist', ui-sans-serif, system-ui, sans-serif;
+}
+
+.tab-custom {
+  transition: all 0.2s ease;
+}
+
+.tab-custom:hover {
+  color: #1e40af;
+}
+
+.job-card {
+  transition: all 0.2s ease;
+}
+
+.job-card:hover {
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.empty-state {
+  text-align: center;
+  padding: 4rem 2rem;
+  background: white;
+  border-radius: 0.5rem;
+  border: 1px solid #e5e7eb;
+}
+
+.empty-state i {
+  font-size: 4rem;
+  color: #3b82f6;
+  margin-bottom: 1rem;
+}
+
+.empty-state h3 {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #374151;
+  margin-bottom: 0.5rem;
+}
+
+.empty-state p {
+  font-size: 0.875rem;
+  color: #6b7280;
+}
