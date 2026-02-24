@@ -73,3 +73,87 @@ function toggleTab(tabId) {
   calculateCounts();
 }
 
+// Event delegation for all button clicks (interview, rejected, delete)
+mainContainer.addEventListener('click', function (event) {
+  if (
+    event.target.classList.contains('interview-btn') ||
+    event.target.parentElement.classList.contains('interview-btn')
+  ) {
+    const button = event.target.classList.contains('interview-btn') ? event.target : event.target.parentElement;
+    const card = button.closest('.job-card');
+
+    const jobInfo = extractJobInfo(card);
+    jobInfo.status = 'Interview';
+
+    const jobExists = interviewList.find(
+      item => item.companyName === jobInfo.companyName && item.position === jobInfo.position
+    );
+
+    if (!jobExists) {
+      interviewList.push(jobInfo);
+    }
+
+    rejectedList = rejectedList.filter(
+      item => !(item.companyName === jobInfo.companyName && item.position === jobInfo.position)
+    );
+
+    if (currentTab === 'rejected') {
+      renderRejectedJobs();
+    }
+
+    calculateCounts();
+  } else if (
+    event.target.classList.contains('rejected-btn') ||
+    event.target.parentElement.classList.contains('rejected-btn')
+  ) {
+    const button = event.target.classList.contains('rejected-btn') ? event.target : event.target.parentElement;
+    const card = button.closest('.job-card');
+
+    const jobInfo = extractJobInfo(card);
+    jobInfo.status = 'Rejected';
+
+    const jobExists = rejectedList.find(
+      item => item.companyName === jobInfo.companyName && item.position === jobInfo.position
+    );
+
+    if (!jobExists) {
+      rejectedList.push(jobInfo);
+    }
+
+    interviewList = interviewList.filter(
+      item => !(item.companyName === jobInfo.companyName && item.position === jobInfo.position)
+    );
+
+    if (currentTab === 'interview') {
+      renderInterviewJobs();
+    }
+
+    calculateCounts();
+  } else if (
+    event.target.classList.contains('btn-delete') ||
+    event.target.parentElement.classList.contains('btn-delete')
+  ) {
+    const button = event.target.classList.contains('btn-delete') ? event.target : event.target.parentElement;
+    const card = button.closest('.job-card');
+
+    const jobInfo = extractJobInfo(card);
+
+    interviewList = interviewList.filter(
+      item => !(item.companyName === jobInfo.companyName && item.position === jobInfo.position)
+    );
+    rejectedList = rejectedList.filter(
+      item => !(item.companyName === jobInfo.companyName && item.position === jobInfo.position)
+    );
+
+    card.remove();
+
+    if (currentTab === 'interview') {
+      renderInterviewJobs();
+    } else if (currentTab === 'rejected') {
+      renderRejectedJobs();
+    }
+
+    calculateCounts();
+  }
+});
+
