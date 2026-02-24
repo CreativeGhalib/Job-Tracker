@@ -33,3 +33,43 @@ function calculateCounts() {
 
 calculateCounts();
 
+// Handle tab switching between all/interview/rejected views
+function toggleTab(tabId) {
+  allTabBtn.classList.remove('border-blue-500', 'text-blue-600');
+  allTabBtn.classList.add('border-transparent', 'text-gray-500');
+
+  interviewTabBtn.classList.remove('border-blue-500', 'text-blue-600');
+  interviewTabBtn.classList.add('border-transparent', 'text-gray-500');
+
+  rejectedTabBtn.classList.remove('border-blue-500', 'text-blue-600');
+  rejectedTabBtn.classList.add('border-transparent', 'text-gray-500');
+
+  const selectedTab = document.getElementById(tabId);
+
+  if (tabId === 'all-tab-btn') {
+    currentTab = 'all';
+  } else if (tabId === 'interview-tab-btn') {
+    currentTab = 'interview';
+  } else if (tabId === 'rejected-tab-btn') {
+    currentTab = 'rejected';
+  }
+
+  selectedTab.classList.remove('border-transparent', 'text-gray-500');
+  selectedTab.classList.add('border-blue-500', 'text-blue-600');
+
+  if (tabId === 'all-tab-btn') {
+    allJobsSection.classList.remove('hidden');
+    filteredSection.classList.add('hidden');
+  } else if (tabId === 'interview-tab-btn') {
+    allJobsSection.classList.add('hidden');
+    filteredSection.classList.remove('hidden');
+    renderInterviewJobs();
+  } else if (tabId === 'rejected-tab-btn') {
+    allJobsSection.classList.add('hidden');
+    filteredSection.classList.remove('hidden');
+    renderRejectedJobs();
+  }
+
+  calculateCounts();
+}
+
