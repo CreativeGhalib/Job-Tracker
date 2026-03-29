@@ -175,12 +175,18 @@ function updateBadge(card, text, bgClass) {
 
 // Pull job data from a card element
 function extractJobInfo(card) {
-  const companyName = card.querySelector('.companyName').innerText;
-  const position = card.querySelector('.position').innerText;
-  const location = card.querySelector('.location').innerText;
-  const type = card.querySelector('.type').innerText;
-  const salary = card.querySelector('.salary').innerText;
-  const description = card.querySelector('.description').innerText;
+  // Defensive: fallback to empty string if element not found
+  const getText = (selector) => {
+    const el = card.querySelector(selector);
+    return el ? el.innerText : '';
+  };
+
+  const companyName = getText('.companyName');
+  const position = getText('.position');
+  const location = getText('.location');
+  const type = getText('.type');
+  const salary = getText('.salary');
+  const description = getText('.description');
 
   return {
     companyName,
