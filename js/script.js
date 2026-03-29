@@ -73,7 +73,7 @@ function toggleTab(tabId) {
   calculateCounts();
 }
 
-// Event delegation for all button clicks (interview, rejected, delete)
+// Use event delegation to handle clicks for dynamically created job action buttons
 mainContainer.addEventListener('click', function (event) {
   if (
     event.target.classList.contains('interview-btn') ||
