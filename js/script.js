@@ -200,52 +200,39 @@ function extractJobInfo(card) {
 }
 
 function renderInterviewJobs() {
-  filteredSection.innerHTML = '';
-
-  if (interviewList.length === 0) {
-    filteredSection.innerHTML = `
-            <div class="empty-state">
-                <i class="fa-solid fa-file-alt"></i>
-                <h3>No jobs available</h3>
-                <p>Check back soon for new job opportunities</p>
-            </div>
-        `;
-    return;
-  }
-
-  const container = document.createElement('div');
-  container.className = 'space-y-3';
-
-  for (let job of interviewList) {
-    const card = createJobCard(job);
-    container.appendChild(card);
-  }
-
-  filteredSection.appendChild(container);
+  renderJobList(
+    interviewList,
+    `<div class="empty-state">
+      <i class="fa-solid fa-file-alt"></i>
+      <h3>No jobs available</h3>
+      <p>Check back soon for new job opportunities</p>
+    </div>`
+  );
 }
 
 function renderRejectedJobs() {
+  renderJobList(
+    rejectedList,
+    `<div class="empty-state">
+      <i class="fa-solid fa-file-alt"></i>
+      <h3>No jobs available</h3>
+      <p>There is no rejected job available right now</p>
+    </div>`
+  );
+}
+// Helper to render a list of jobs or show empty state
+function renderJobList(list, emptyHtml) {
   filteredSection.innerHTML = '';
-
-  if (rejectedList.length === 0) {
-    filteredSection.innerHTML = `
-            <div class="empty-state">
-                <i class="fa-solid fa-file-alt"></i>
-                <h3>No jobs available</h3>
-                <p>There is no rejected job available right now</p>
-            </div>
-        `;
+  if (list.length === 0) {
+    filteredSection.innerHTML = emptyHtml;
     return;
   }
-
   const container = document.createElement('div');
   container.className = 'space-y-3';
-
-  for (let job of rejectedList) {
+  for (let job of list) {
     const card = createJobCard(job);
     container.appendChild(card);
   }
-
   filteredSection.appendChild(container);
 }
 
