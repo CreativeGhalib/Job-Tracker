@@ -97,10 +97,8 @@ mainContainer.addEventListener('click', function (event) {
       item => !(item.companyName === jobInfo.companyName && item.position === jobInfo.position)
     );
 
-    // Update badge color to green
-    const badge = card.querySelector('.text-xs.px-2');
-    badge.className = 'text-xs px-2 py-0.5 bg-green-500 text-white rounded inline-block mb-2';
-    badge.innerText = 'INTERVIEW';
+    // Update badge for interview
+    updateBadge(card, 'INTERVIEW', 'bg-green-500');
 
     if (currentTab === 'rejected') {
       renderRejectedJobs();
@@ -131,10 +129,14 @@ mainContainer.addEventListener('click', function (event) {
       item => !(item.companyName === jobInfo.companyName && item.position === jobInfo.position)
     );
 
-    // Update badge color to red
-    const badge = card.querySelector('.text-xs.px-2');
-    badge.className = 'text-xs px-2 py-0.5 bg-red-500 text-white rounded inline-block mb-2';
-    badge.innerText = 'REJECTED';
+    // Update badge for rejected
+    updateBadge(card, 'REJECTED', 'bg-red-500');
+// Helper to update badge style and text
+function updateBadge(card, text, bgClass) {
+  const badge = card.querySelector('.text-xs.px-2');
+  badge.className = `text-xs px-2 py-0.5 ${bgClass} text-white rounded inline-block mb-2`;
+  badge.innerText = text;
+}
 
     if (currentTab === 'interview') {
       renderInterviewJobs();
