@@ -221,6 +221,7 @@ function renderRejectedJobs() {
   );
 }
 // Helper to render a list of jobs or show empty state
+// Helper to render a list of jobs or show an empty state message
 function renderJobList(list, emptyHtml) {
   filteredSection.innerHTML = '';
   if (list.length === 0) {
